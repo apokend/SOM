@@ -46,7 +46,7 @@ class SOM(BaseEstimator, ClassifierMixin):
         else:
             return 0
 
-    @runTime("log_path")
+    #@runTime("log_path")
     def fit(self, X, y=None):
         print('Fit method enable')
         self.som = somoclu.Somoclu(
@@ -56,7 +56,7 @@ class SOM(BaseEstimator, ClassifierMixin):
         self.t = self.__calc_treshold(self.distances)
         return self
 
-    @runTime("log_path")
+    #@runTime("log_path")
     def predict(self, X, y=None):
         print('Predict method enable')
         self.distances_test = [min(x) for x in self.som.get_surface_state(X)]
@@ -72,7 +72,7 @@ class SOM(BaseEstimator, ClassifierMixin):
         self.preds, self.probs = preds, probs
         return preds, probs
 
-    @scoreExport("log_path")
+    #@scoreExport("log_path")
     def score(self, y_test, preds = None, probs = None):
         if preds == None:
             preds = self.preds
