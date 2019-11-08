@@ -6,41 +6,41 @@ from tools.logger import logger
 
 
 def main():
-    print('PREDICT method: ACTIVE')
-    print('**** Getting path ****')
+    #print('PREDICT method: ACTIVE')
+    #print('**** Getting path ****')
     path = os.getcwd().replace('\\', '/')
-    print('Path: READY')
+    #print('Path: READY')
     logger.info("PREDICT method: ACTIVE | Status: [Path : READY, ] ")
 
     model = joblib.load(path + "/model/som_predictor.pkl")
-    print('Model: READY')
+    #print('Model: READY')
     logger.info("PREDICT method: ACTIVE | Status: [Model : READY, ] ")
 
     data = pd.read_csv('dataset/dataset.csv')
-    print('Data: READY')
+    #print('Data: READY')
     logger.info("PREDICT method: ACTIVE | Status: [Data : READY, ] ")
 
     X = data.iloc[:, :-1].values
     y = data.iloc[:, -1].values
 
     logger.info("PREDICT method: ACTIVE | Status: READY | Prediction... ")
-    print('Predict: Start')
+    #print('Predict: Start')
     preds, probs = model.predict(X)
 
     logger.info(
         "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores ... ")
 
-    print('Getting scores...')
-    """
+    #print('Getting scores...')
+  
     scores = {}
     for score in [accuracy_score, precision_score, recall_score, f1_score]:
-    	name = scores[score.__name__.split('_')[0]]
+    	name = score.__name__.split('_')[0]
         scores[name] = score(y, preds)
         print(name + ':%.3f' % (scores[name]))
     scores['roc-auc'] = roc_auc_score(y, probs)
     print('roc-auc: %.3f' % (scores['roc-auc']))
-    """
-    scores = model.score(y, preds, probs)
+
+    #scores = model.score(y, preds, probs)
     logger.info(
         "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
     logger.info("\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
