@@ -39,11 +39,6 @@ print('Success')
 print('Geting scores')
 clf.score(y_test)
 
-"""
-for score in [accuracy_score, precision_score, recall_score, f1_score]:
-		 print(score.__name__.split('_')[0]+':%.3f'%(score(y_test, preds)))
-print('roc-auc: %.3f'%(roc_auc_score(y_test, probs)))
-"""
 print('Saving model')
 full_pipeline_with_predictor.steps.append(['SOM',clf])
 joblib.dump(full_pipeline_with_predictor, "model/som_predictor.pkl")

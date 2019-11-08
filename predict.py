@@ -2,28 +2,50 @@ from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_sc
 from sklearn.externals import joblib
 import pandas as pd
 import os
+from tools.logger import logger
 
-print('PREDICT method: ACTIVE')
-print('**** Getting path ****')
 
-path = os.getcwd().replace('\\','/')
-print('Path: READY')
+def main():
+    print('PREDICT method: ACTIVE')
+    print('**** Getting path ****')
+    path = os.getcwd().replace('\\', '/')
+    print('Path: READY')
+    logger.info("PREDICT method: ACTIVE | Status: [Path : READY, ] ")
 
-model = joblib.load(path+"/model/som_predictor.pkl")
-print('Model: READY')
+    model = joblib.load(path + "/model/som_predictor.pkl")
+    print('Model: READY')
+    logger.info("PREDICT method: ACTIVE | Status: [Model : READY, ] ")
 
-data = pd.read_csv('dataset/dataset.csv')
-print('Data: READY')
+    data = pd.read_csv('dataset/dataset.csv')
+    print('Data: READY')
+    logger.info("PREDICT method: ACTIVE | Status: [Data : READY, ] ")
 
-X = data.iloc[:,:-1].values
-y = data.iloc[:,-1].values
+    X = data.iloc[:, :-1].values
+    y = data.iloc[:, -1].values
 
-print('Predict: Start')
-preds, probs = model.predict(X)
+    logger.info("PREDICT method: ACTIVE | Status: READY | Prediction... ")
+    print('Predict: Start')
+    preds, probs = model.predict(X)
 
-print('Getting scores...')
-for score in [accuracy_score, precision_score, recall_score, f1_score]:
-        print(score.__name__.split('_')[0]+':%.3f'%(score(y, preds)))
-print('roc-auc: %.3f'%(roc_auc_score(y, probs)))
+    logger.info(
+        "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores ... ")
 
-print('END')
+    print('Getting scores...')
+    """
+    scores = {}
+    for score in [accuracy_score, precision_score, recall_score, f1_score]:
+    	name = scores[score.__name__.split('_')[0]]
+        scores[name] = score(y, preds)
+        print(name + ':%.3f' % (scores[name]))
+    scores['roc-auc'] = roc_auc_score(y, probs)
+    print('roc-auc: %.3f' % (scores['roc-auc']))
+    """
+    scores = model.score(y, preds, probs)
+    logger.info(
+        "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
+    logger.info("\n---------------\n".join([f"{k} : {v}" for k, v in data.items()]))
+
+
+if __name__ == '__main__':
+    logger.info('Logger: INIT')
+    main()
