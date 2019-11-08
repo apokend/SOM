@@ -31,10 +31,10 @@ def main():
         "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores ... ")
 
     #print('Getting scores...')
-  
+
     scores = {}
     for score in [accuracy_score, precision_score, recall_score, f1_score]:
-    	name = score.__name__.split('_')[0]
+        name = score.__name__.split('_')[0]
         scores[name] = score(y, preds)
         print(name + ':%.3f' % (scores[name]))
     scores['roc-auc'] = roc_auc_score(y, probs)
@@ -43,7 +43,8 @@ def main():
     #scores = model.score(y, preds, probs)
     logger.info(
         "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
-    logger.info("\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
+    logger.info(
+        "\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
 
 
 if __name__ == '__main__':
