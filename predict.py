@@ -43,7 +43,7 @@ def main():
     scores = model.score(y, preds, probs)
     logger.info(
         "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
-    logger.info("\n---------------\n".join([f"{k} : {v}" for k, v in data.items()]))
+    logger.info("\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
 
 
 if __name__ == '__main__':
