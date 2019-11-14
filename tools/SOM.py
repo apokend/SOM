@@ -77,21 +77,3 @@ class SOM(BaseEstimator, ClassifierMixin):
         self.preds, self.probs = preds, probs
         logger.info('<< SOM Model | Predict Method: DONE >>')
         return preds, probs
-
-"""
-    @runTimeLogger
-    def score(self, y_test, preds = None, probs = None):
-        if preds == None:
-            preds = self.preds
-        if probs== None:
-            probs=self.probs
-        scores = {}
-        for score in [accuracy_score, precision_score, recall_score, f1_score]:
-            metric = score.__name__.split('_')[0]   
-            quality = score(y_test, preds)
-            scores[metric] = quality  
-            print(metric + ':%.3f'%quality)
-        scores['roc-auc'] = roc_auc_score(y_test, probs)
-        print('roc-auc: %.3f'%scores['roc-auc'])
-        return scores
-"""
