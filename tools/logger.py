@@ -1,3 +1,9 @@
+#---------------------------+
+#        Version:  1.01     +
+#   Status: Ready to Test   +
+#   Author: Shevchenko A.A. +
+#-------------------------- +
+
 from loguru import logger
 from datetime import datetime
 

@@ -1,52 +1,44 @@
+#---------------------------+
+#        Version:  1.01     +
+#   Status: Ready to Test   +
+#   Author: Shevchenko A.A. +
+#-------------------------- +
+
 from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, roc_auc_score
 from sklearn.externals import joblib
 import pandas as pd
 import os
 from tools.logger import logger
-
+from tools.functions import score, export_labels
 
 def main():
-    #print('PREDICT method: ACTIVE')
-    #print('**** Getting path ****')
     path = os.getcwd().replace('\\', '/')
-    #print('Path: READY')
-    logger.info("PREDICT method: ACTIVE | Status: [Path : READY, ] ")
+    logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, ] >>")
 
     model = joblib.load(path + "/model/som_predictor.pkl")
-    #print('Model: READY')
-    logger.info("PREDICT method: ACTIVE | Status: [Model : READY, ] ")
+    logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, ] >>")
 
     data = pd.read_csv('dataset/dataset.csv')
-    #print('Data: READY')
-    logger.info("PREDICT method: ACTIVE | Status: [Data : READY, ] ")
-
+    logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, Data : READY] >>")
+    
+    # Getting data 
     X = data.iloc[:, :-1].values
     y = data.iloc[:, -1].values
 
-    logger.info("PREDICT method: ACTIVE | Status: READY | Prediction... ")
-    #print('Predict: Start')
+    # All that we need for pre-processing new data is allready in the model Pipeline
+    logger.info("<< Model Prepatation: DONE | PREDICT method: ACTIVE >>")
     preds, probs = model.predict(X)
-
     logger.info(
-        "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores ... ")
+        "<< Model Prepatation: DONE | PREDICT method: DONE >> ")
 
-    #print('Getting scores...')
-
-    scores = {}
-    for score in [accuracy_score, precision_score, recall_score, f1_score]:
-        name = score.__name__.split('_')[0]
-        scores[name] = score(y, preds)
-        print(name + ':%.3f' % (scores[name]))
-    scores['roc-auc'] = roc_auc_score(y, probs)
-    print('roc-auc: %.3f' % (scores['roc-auc']))
-
-    #scores = model.score(y, preds, probs)
-    logger.info(
-        "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
-    logger.info(
-        "\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
-
+    # Here we can get and log our scores based on a set of standart metrics 
+    score(y, preds = preds, probs = probs)
+    
+    # Need to add label export
+    logger.info("<< EXPORT LABELS >>")
+    export_labels(preds,'labels.txt')
 
 if __name__ == '__main__':
-    logger.info('Logger: INIT')
+    logger.info('<< Logger: INIT >>')
     main()
+    logger.info('<< Logger: END >>')

@@ -1,3 +1,9 @@
+#---------------------------+
+#        Version:  1.01     +
+#   Status: Ready to Test   +
+#   Author: Shevchenko A.A. +
+#-------------------------- +
+
 import sys
 import os
 import timeit
@@ -7,7 +13,23 @@ import functools
 import numpy as np
 import pandas as pd
 from sklearn.utils import shuffle
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, roc_auc_score
+try:
+    from logger import logger
+except ImportError:
+    from .logger import logger
 
+
+def runTimeLogger(function):
+    def wrapper(self, *args, **kwargs):
+        start = timeit.default_timer()
+        r = function(self, *args, **kwargs)
+        end = timeit.default_timer()
+        timer = timedelta(seconds=end - start)
+        name = function.__name__
+        logger.info(f'<< Runtime {name} method: {timer} >>')
+        return r
+    return wrapper
 
 
 def collect_data(path=None):
@@ -39,13 +61,14 @@ def collect_data(path=None):
     data.dropna(inplace=True)
     data.to_csv('dataset/dataset.csv', index=False)
 
-def test_train_split(X, y):
+def test_train_split(X, y, test_size = None):
     principalDf = pd.DataFrame(data = X, columns = ['pc1', 'pc2', 'pc3', 'pc4'])
     data = pd.concat([principalDf, y.label], axis = 1)
     good = data[data.label == 0]
     good = shuffle(good)
-    good_train = good.iloc[:20000,:-1].values
-    good_test = good.iloc[20000:,:-1].values
+    CONST_PROC = 20000 if test_size == None else int(good.shape[0] *(1 - test_size))
+    good_train = good.iloc[:CONST_PROC,:-1].values
+    good_test = good.iloc[CONST_PROC:,:-1].values
     bad = data[data.label == 1].values[:,:-1]
 
     X_train = good_train
@@ -55,63 +78,17 @@ def test_train_split(X, y):
     return X_train, X_test, y_train, y_test
 
 
-def runTime(attribute):
-    def _runTime(method_to_decor):
-        @functools.wraps(method_to_decor)
-        def wrapper(self, *args, **kwargs):
-            path = getattr(self, attribute)
-            f = list(sys._current_frames().values())[0]
-            f = f.f_back.f_globals['__file__'].split('\\')[-1]
-            file_name = str(f.split('.')[0]).upper()
-            date = dt.now().strftime("%d-%b-%Y")
-            folder_path = f"{path}/{date}/{file_name}/"
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-            time_event = dt.now().strftime("%H-%M-%S")
-            print(f"{dt.now()}: <<Called '{method_to_decor.__name__}' method>>",
-                  file=open(folder_path + f"/{time_event}_{file_name}_{method_to_decor.__name__}.txt", 'a'))
-            start = timeit.default_timer()
-            r = method_to_decor(self, *args, **kwargs)
-            end = timeit.default_timer()
-            timer = timedelta(seconds=end - start)
-            print(f"{dt.now()}: <<Method '{method_to_decor.__name__}' -- runtime: {timer} >>",
-                  file=open(folder_path + f"/{time_event}_{file_name}_{method_to_decor.__name__}.txt", 'a'))
-            return r
-        return wrapper
-    return _runTime
+def score(y, preds, probs):
+    logger.info('<< Getting scores of metrics: ACTIVATE | Status: IN PROCCESS >>')
+    scores = {}
+    for score in [accuracy_score, precision_score, recall_score, f1_score]:
+        name = score.__name__.split('_')[0]
+        scores[name] = score(y, preds)
+    scores['roc-auc'] = roc_auc_score(y, probs)
+    logger.info(
+        "<< Getting scores of metrics: ACTIVATE | Status: DONE >>")
+    logger.info('\n'+
+        "\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
 
-
-
-def scoreExport(attribute):
-    def _scoreExport(method_to_decor):
-        @functools.wraps(method_to_decor)
-        def wrapper(self, *args, **kwargs):
-            path = getattr(self, attribute)
-            f = list(sys._current_frames().values())[0]
-            f = f.f_back.f_globals['__file__'].split('\\')[-1]
-            file_name = str(f.split('.')[0]).upper()
-            date = dt.now().strftime("%d-%b-%Y")
-            folder_path = f"{path}/{date}/{file_name}/"
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
-            time_event = dt.now().strftime("%H-%M-%S")
-            r = method_to_decor(self, *args, **kwargs)
-            file_path = folder_path + f"/{time_event}_{file_name}_{method_to_decor.__name__}.txt"
-            print(f"{dt.now()}: <<Called '{method_to_decor.__name__}' method >>",
-                  file=open(file_path, 'a'))
-            print("-"*19,file=open(file_path, 'a'))
-            print("Metric \t\tQuality",file=open(file_path, 'a'))
-            print("-"*19,file=open(file_path, 'a'))
-            for k,v in r.items():
-                print(f"* {k}:\t{v:.3f}\n",
-                  file=open(file_path,'a'))
-            return r
-        return wrapper
-    return _scoreExport
-
-
-
-def create_path(x:str) -> str:
-    if not x.startswith('/'):
-        x = '/'+x
-    return os.getcwd().replace('\\','/') + x
+def export_labels(labels,file_name):
+    print(labels, file = open(file_name,'w'))

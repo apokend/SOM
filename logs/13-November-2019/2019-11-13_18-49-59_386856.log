@@ -1,0 +1,104 @@
+<< 2019-November-13 18:50:00 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train Logger: INIT >>'.
+* Total work time:0:00:01.112761>>
+
+
+
+<< 2019-November-13 18:50:00 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train mode: ACTIVATE | Status: Trying to find dataset >>'.
+* Total work time:0:00:01.115758>>
+
+
+
+<< 2019-November-13 18:50:00 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train mode: ACTIVATE | Status: Dataset is found | Loading data >>'.
+* Total work time:0:00:01.116757>>
+
+
+
+<< 2019-November-13 18:50:03 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called '__init__' -- '<< SOM Model: INIT >>'.
+* Total work time:0:00:03.796408>>
+
+
+
+<< 2019-November-13 18:50:03 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'fit' -- '<< SOM Model | Fit Method: RUN >>'.
+* Total work time:0:00:03.798407>>
+
+
+
+<< 2019-November-13 18:50:41 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'fit' -- '<< SOM Model | Fit Method: DONE >>'.
+* Total work time:0:00:42.487245>>
+
+
+
+<< 2019-November-13 18:50:41 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'wrapper' -- '<< Runtime for fit: 0:00:38.691432 >>'.
+* Total work time:0:00:42.489243>>
+
+
+
+<< 2019-November-13 18:50:41 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'predict' -- '<< SOM Model | Predict Method: RUN >>'.
+* Total work time:0:00:42.491242>>
+
+
+
+<< 2019-November-13 18:52:47 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'predict' -- '<< SOM Model | Predict Method: DONE >>'.
+* Total work time:0:02:48.431847>>
+
+
+
+<< 2019-November-13 18:52:47 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'wrapper' -- '<< Runtime for predict: 0:02:05.942823 >>'.
+* Total work time:0:02:48.433846>>
+
+
+
+<< 2019-November-13 18:52:47 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- '<< Getting scores of metrics: ACTIVATE | Status: IN PROCCESS >>'.
+* Total work time:0:02:48.434845>>
+
+
+
+<< 2019-November-13 18:52:48 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- '<< Getting scores of metrics: ACTIVATE | Status: DONE >>'.
+* Total work time:0:02:48.932213>>
+
+
+
+<< 2019-November-13 18:52:48 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- 'accuracy : 0.9320394722447104
+---------------
+precision : 0.9979349083099289
+---------------
+recall : 0.9228242603248968
+---------------
+f1 : 0.9589109958725791
+---------------
+roc-auc : 0.9864283018279676'.
+* Total work time:0:02:48.934212>>
+
+
+
+<< 2019-November-13 18:52:48 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train mode: ACTIVATE | Status: Saving model >>'.
+* Total work time:0:02:48.938210>>
+
+
+
+<< 2019-November-13 18:52:52 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train mode: ACTIVATE | Status: Model saved >>'.
+* Total work time:0:02:53.088290>>
+
+
+
+<< 2019-November-13 18:52:52 || Enter point: train.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Train Logger: END >>'.
+* Total work time:0:02:53.090906>>
+
+
+
