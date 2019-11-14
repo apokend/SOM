@@ -1,3 +1,9 @@
+#---------------------------+
+#        Version:  1.01     +
+#   Status: Ready to Test   +
+#   Author: Shevchenko A.A. +
+#-------------------------- +
+
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.decomposition import PCA
@@ -12,8 +18,5 @@ prep_pipeline = Pipeline([
 
 full_pipeline_with_predictor = Pipeline([
     ('preproc', prep_pipeline)
-    #('kohonen', None)
 ])
 
-
-# full_pipeline_with_predictor.steps.append(['kohonen',None])
