@@ -1,0 +1,93 @@
+<< 2019-November-13 19:10:10 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Logger: INIT >>'.
+* Total work time:0:00:00.008701>>
+
+
+
+<< 2019-November-13 19:10:10 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< Model Preparation: IN PROCESS | Status: [Path : READY, ] >>'.
+* Total work time:0:00:00.010076>>
+
+
+
+<< 2019-November-13 19:10:12 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, ] >>'.
+* Total work time:0:00:01.541458>>
+
+
+
+<< 2019-November-13 19:10:12 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, Data : READY] >>'.
+* Total work time:0:00:01.891252>>
+
+
+
+<< 2019-November-13 19:10:12 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< Model Prepatation: DONE | PREDICT method: ACTIVE >>'.
+* Total work time:0:00:01.914236>>
+
+
+
+<< 2019-November-13 19:10:12 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'predict' -- '<< SOM Model | Predict Method: RUN >>'.
+* Total work time:0:00:01.975191>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: SOM.py | Module: tools.SOM		| INFO ||
+* Called 'predict' -- '<< SOM Model | Predict Method: DONE >>'.
+* Total work time:0:02:34.780797>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'wrapper' -- '<< Runtime predict method: 0:02:32.831396 >>'.
+* Total work time:0:02:34.806779>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< Model Prepatation: DONE | PREDICT method: DONE >> '.
+* Total work time:0:02:34.808776>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- '<< Getting scores of metrics: ACTIVATE | Status: IN PROCCESS >>'.
+* Total work time:0:02:34.811775>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- '<< Getting scores of metrics: ACTIVATE | Status: DONE >>'.
+* Total work time:0:02:35.194506>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: functions.py | Module: tools.functions		| INFO ||
+* Called 'score' -- '
+accuracy : 0.9411880868175861
+---------------
+precision : 0.9945459541145761
+---------------
+recall : 0.9216402709171462
+---------------
+f1 : 0.9567061808666693
+---------------
+roc-auc : 0.9868764193196788'.
+* Total work time:0:02:35.200715>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called 'main' -- '<< EXPORT LABELS >>'.
+* Total work time:0:02:35.202710>>
+
+
+
+<< 2019-November-13 19:12:45 || Enter point: predict.py | Module: __main__		| INFO ||
+* Called '<module>' -- '<< Logger: END >>'.
+* Total work time:0:02:35.233690>>
+
+
+
