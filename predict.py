@@ -33,21 +33,10 @@ def main():
 
     # Here we can get and log our scores based on a set of standart metrics 
     score(y, preds = preds, probs = probs)
-    """
-    scores = {}
-    for score in [accuracy_score, precision_score, recall_score, f1_score]:
-        name = score.__name__.split('_')[0]
-        scores[name] = score(y, preds)
-    scores['roc-auc'] = roc_auc_score(y, probs)
-
-    logger.info(
-        "PREDICT method: ACTIVE | Status: READY | Prediction: READY | Scores: READY")
-    logger.info(
-        "\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
-    """
-### Need to add label export
+    
+    # Need to add label export
     logger.info("<< EXPORT LABELS >>")
-    export_labels(preds,'labels.txt') #TODO FUN
+    export_labels(preds,'labels.txt')
 
 if __name__ == '__main__':
     logger.info('<< Logger: INIT >>')
