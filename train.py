@@ -1,3 +1,9 @@
+#---------------------------+
+#        Version:  1.01     +
+#   Status: Ready to Test   +
+#   Author: Shevchenko A.A. +
+#-------------------------- +
+
 import os 
 import pandas as pd
 from sklearn.externals import joblib
@@ -6,39 +12,28 @@ from tools.pipelines import *
 from tools.functions import *
 from tools.SOM import SOM
 
-"""
-print('---- Success ----')
-print('Trying to find dataset....')
+logger.info('<< Train Logger: INIT >>')
 
-if not 'dataset' in os.listdir('dataset'):
-	print('---- Dataset not found---')
-	print(' //-- Creating dataset.. --\\\\')
+logger.info('<< Train mode: ACTIVATE | Status: Trying to find dataset >>')
+if not 'dataset.csv' in os.listdir('dataset'):
+	logger.info('<< Train mode: ACTIVATE | Status: Dataset not found | Creating dataset >>')
 	collect_data()
-	print('<< Dataset created >> ')
+	logger.info('<< Train mode: ACTIVATE | Status: Dataset created >>')
 else:
-	print('---- Dataset is found ----')
-"""
+	logger.info('<< Train mode: ACTIVATE | Status: Dataset is found | Loading data >>')
 
 data = pd.read_csv('dataset/dataset.csv')
 X = data.iloc[:,:-1].values
 X = prep_pipeline.fit_transform(X)
 X_train, X_test, y_train, y_test = test_train_split(X, data)
 
-print(""" Data is ready
-Model created
-Starting learning...""")
-
 clf = SOM()
 clf.fit(X_train)
-
-
-print('Model prediction')
 preds, probs = clf.predict(X_test)
-print('Success')
+score(y_test, preds = preds, probs = probs)
 
-print('Geting scores')
-clf.score(y_test)
-
-print('Saving model')
+logger.info('<< Train mode: ACTIVATE | Status: Saving model >>')
 full_pipeline_with_predictor.steps.append(['SOM',clf])
 joblib.dump(full_pipeline_with_predictor, "model/som_predictor.pkl")
+logger.info('<< Train mode: ACTIVATE | Status: Model saved >>')
+logger.info('<< Train Logger: END >>')
