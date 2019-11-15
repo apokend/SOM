@@ -1,6 +1,6 @@
 #---------------------------+
-#        Version:  1.01     +
-#   Status: Ready to Test   +
+#        Version:  1.02     +
+#   Status: Ready to Prod   +
 #   Author: Shevchenko A.A. +
 #-------------------------- +
 
@@ -12,12 +12,13 @@ from tools.logger import logger
 from tools.functions import score, export_labels
 
 def main():
+    # Get path
     path = os.getcwd().replace('\\', '/')
     logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, ] >>")
-
+    # Load model
     model = joblib.load(path + "/model/som_predictor.pkl")
     logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, ] >>")
-
+    # Load data
     data = pd.read_csv('dataset/dataset.csv')
     logger.info("<< Model Preparation: IN PROCESS | Status: [Path : READY, Model : READY, Data : READY] >>")
     

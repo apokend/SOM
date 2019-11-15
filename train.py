@@ -1,6 +1,6 @@
 #---------------------------+
 #        Version:  1.01     +
-#   Status: Ready to Test   +
+#   Status: Ready to Prod   +
 #   Author: Shevchenko A.A. +
 #-------------------------- +
 
@@ -14,6 +14,7 @@ from tools.SOM import SOM
 
 logger.info('<< Train Logger: INIT >>')
 
+# Trying to get data. If false, then collect
 logger.info('<< Train mode: ACTIVATE | Status: Trying to find dataset >>')
 if not 'dataset.csv' in os.listdir('dataset'):
 	logger.info('<< Train mode: ACTIVATE | Status: Dataset not found | Creating dataset >>')
@@ -22,16 +23,19 @@ if not 'dataset.csv' in os.listdir('dataset'):
 else:
 	logger.info('<< Train mode: ACTIVATE | Status: Dataset is found | Loading data >>')
 
+# Read created dataset and preprocess it 
 data = pd.read_csv('dataset/dataset.csv')
 X = data.iloc[:,:-1].values
 X = prep_pipeline.fit_transform(X)
 X_train, X_test, y_train, y_test = test_train_split(X, data)
 
+# Init our model and fit it. Then we get predictions
 clf = SOM()
 clf.fit(X_train)
 preds, probs = clf.predict(X_test)
 score(y_test, preds = preds, probs = probs)
 
+# Save our model
 logger.info('<< Train mode: ACTIVATE | Status: Saving model >>')
 full_pipeline_with_predictor.steps.append(['SOM',clf])
 joblib.dump(full_pipeline_with_predictor, "model/som_predictor.pkl")
