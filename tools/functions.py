@@ -1,6 +1,6 @@
 #---------------------------+
 #        Version:  1.01     +
-#   Status: Ready to Test   +
+#   Status: Ready to Prod   +
 #   Author: Shevchenko A.A. +
 #-------------------------- +
 
@@ -21,6 +21,15 @@ except ImportError:
 
 
 def runTimeLogger(function):
+    """
+    - logger for SOM methods
+    -------------------------
+    Arguments:
+        function - SOM method
+    -------------------------
+    Return:
+        None
+    """
     def wrapper(self, *args, **kwargs):
         start = timeit.default_timer()
         r = function(self, *args, **kwargs)
@@ -33,6 +42,15 @@ def runTimeLogger(function):
 
 
 def collect_data(path=None):
+    """
+    collecting data from the given path and write it to csv file
+    ----------------------------------
+    Arguments:
+        * path - str - path to data. By default: None
+    ----------------------------------
+    Return:
+        None
+    """
     if path == None:
         path = os.getcwd().replace('\\','/') + '/dataset/data'
     DFs = []
@@ -62,6 +80,17 @@ def collect_data(path=None):
     data.to_csv('dataset/dataset.csv', index=False)
 
 def test_train_split(X, y, test_size = None):
+    """
+    create train and test datasets
+    ------------------------------
+    Arguments:
+        * X - list or np.array - X matrix 
+        * y - list or np.array - y vector
+        * test_size  - float value between 0 and 1 - test data size. Default: None
+    ------------------------------
+    Return:
+        X_train, X_test, y_train, y_test
+    """
     principalDf = pd.DataFrame(data = X, columns = ['pc1', 'pc2', 'pc3', 'pc4'])
     data = pd.concat([principalDf, y.label], axis = 1)
     good = data[data.label == 0]
@@ -79,6 +108,17 @@ def test_train_split(X, y, test_size = None):
 
 
 def score(y, preds, probs):
+    """
+    calc accuracy, precision, recall and f1 
+    ----------------------------------------
+    Arguments: 
+        * y - list - true values
+        * preds - list - predicted values
+        * probs - list - proba values
+    ----------------------------------------
+    Return:
+        None
+    """
     logger.info('<< Getting scores of metrics: ACTIVATE | Status: IN PROCCESS >>')
     scores = {}
     for score in [accuracy_score, precision_score, recall_score, f1_score]:
@@ -91,4 +131,11 @@ def score(y, preds, probs):
         "\n---------------\n".join([f"{k} : {v}" for k, v in scores.items()]))
 
 def export_labels(labels,file_name):
+    """
+    export predicted labels to file
+    --------------------------------
+    Arguments:
+        * labels - list - our predicted labels
+        * file_name - str - name of file, like: labels.txt
+    """
     print(labels, file = open(file_name,'w'))
